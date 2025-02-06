@@ -26,7 +26,7 @@ var app = builder.Build();
 // הוספת CORS לפני כל הקריאות ב-API
 app.UseCors("AllowAll");
 
-if (app.Environment.IsDevelopment())
+//if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -63,5 +63,5 @@ app.MapDelete("/items/{id}", async (ToDoDbContext db, int id) =>
     await db.SaveChangesAsync();
     return Results.NoContent();
 });
-
+app.MapGet("/",()=>"hello world,nice to meet you");
 app.Run();
