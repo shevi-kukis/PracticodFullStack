@@ -8,29 +8,34 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()  // מאפשר לכל דומיין לפנות
-              .AllowAnyMethod()  // מאפשר כל HTTP method (GET, POST, PUT, DELETE)
-              .AllowAnyHeader(); // מאפשר כל כותרת
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
     });
 });
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// קבלת ה-Connection String ממשתנה סביבה בלבד
+var connectionString = Environment.GetEnvironmentVariable("ToDoDB");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new Exception("Missing database connection string in environment variables");
+}
 
 builder.Services.AddDbContext<ToDoDbContext>(options =>
-    options.UseMySql("server=localhost;user=root;password=aA1795aA;database=ToDoDB",
-        Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.35-mysql")));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 // הוספת CORS לפני כל הקריאות ב-API
 app.UseCors("AllowAll");
 
-//if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// הצגת Swagger
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapGet("/items", async (ToDoDbContext db) =>
     await db.Items.ToListAsync());
@@ -63,5 +68,7 @@ app.MapDelete("/items/{id}", async (ToDoDbContext db, int id) =>
     await db.SaveChangesAsync();
     return Results.NoContent();
 });
-app.MapGet("/",()=>"hello world,nice to meet you");
+
+app.MapGet("/", () => "hello world, nice to meet you");
+
 app.Run();
