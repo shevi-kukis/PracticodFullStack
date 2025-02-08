@@ -78,7 +78,7 @@
 // app.Run();
 using Microsoft.EntityFrameworkCore;
 using TodoApi;
-try{
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -157,8 +157,3 @@ app.MapDelete("/items/{id}", async (ToDoDbContext db, int id) =>
 
 app.MapGet("/", () => "hello world");
 app.Run();
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Database connection error: {ex.Message}");
-}
