@@ -89,7 +89,7 @@ builder.Services.AddSwaggerGen();
 
 // Injecting the DbContext into services
 builder.Services.AddDbContext<ToDoDbContext>(options =>
-    options.UseMySql("Server=localhost;Database=ToDoDB;User=root;Password=aA1795aA;",
+    options.UseMySql("Server=biuywqdsqp7r0cnswezm-mysql;Database=ToDoDB;User=uxgzm0r1st7zgwdo;Password=IWJAebiO2m4Nv0wq8Ecp;",
     Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.41-mysql")));
 
 //// cors /////////////
