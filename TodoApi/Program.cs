@@ -69,6 +69,6 @@ app.MapDelete("/items/{id}", async (ToDoDbContext db, int id) =>
     return Results.NoContent();
 });
 
-app.MapGet("/", () => "hello world, nice to meet you");
+app.MapGet("/", () => "hello world");
 
 app.Run();
