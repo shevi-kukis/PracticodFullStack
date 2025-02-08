@@ -33,9 +33,13 @@ var app = builder.Build();
 // הוספת CORS לפני כל הקריאות ב-API
 app.UseCors("AllowAll");
 
-// הצגת Swagger
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDo API V1");
+    c.RoutePrefix = "swagger"; // ניגשים דרך /swagger
+});
+
 
 app.MapGet("/items", async (ToDoDbContext db) =>
     await db.Items.ToListAsync());
