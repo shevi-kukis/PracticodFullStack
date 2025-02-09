@@ -23,12 +23,7 @@ if (string.IsNullOrEmpty(connectionString))
 }
 
 builder.Services.AddDbContext<ToDoDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
-        mySqlOptions => mySqlOptions.EnableRetryOnFailure(
-            maxRetryCount: 5, // כמה פעמים לנסות מחדש
-            maxRetryDelay: TimeSpan.FromSeconds(10), // זמן המתנה בין ניסיונות
-            errorNumbersToAdd: null))); // רשימת שגיאות מיוחדות (null = כל השגיאות)
-
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -41,9 +36,10 @@ app.UseCors("AllowAll");
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("https://todoserver-uiti.onrender.com/", "ToDo API V1");
-    c.RoutePrefix = "swagger";
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDo API V1");
+    c.RoutePrefix = "swagger"; // ניגשים דרך /swagger
 });
+
 
 app.MapGet("/items", async (ToDoDbContext db) =>
     await db.Items.ToListAsync());
