@@ -9,5 +9,5 @@ public partial class Item
 
     public string Name { get; set; } = null!;
 
-    public bool? IsComplete { get; set; }
+    public bool? isComplete { get; set; }
 }
