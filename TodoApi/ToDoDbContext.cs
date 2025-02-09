@@ -29,11 +29,11 @@ public partial class ToDoDbContext : DbContext
 
         modelBuilder.Entity<Item>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
+            entity.HasKey(e => e.id).HasName("PRIMARY");
 
             entity.ToTable("items");
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.id).HasColumnName("id");
             entity.Property(e => e.Name).HasMaxLength(100);
         });
 

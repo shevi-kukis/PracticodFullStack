@@ -52,7 +52,7 @@ app.MapPost("/items", async (ToDoDbContext db, Item newItem) =>
 {
     db.Items.Add(newItem);
     await db.SaveChangesAsync();
-    return Results.Created($"/items/{newItem.Id}", newItem);
+    return Results.Created($"/items/{newItem.id}", newItem);
 });
 
 app.MapPut("/items/{id}", async (ToDoDbContext db, int id, Item updatedItem) =>

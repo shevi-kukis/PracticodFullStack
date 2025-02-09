@@ -5,7 +5,7 @@ namespace TodoApi;
 
 public partial class Item
 {
-    public int Id { get; set; }
+    public int id { get; set; }
 
     public string Name { get; set; } = null!;
 
