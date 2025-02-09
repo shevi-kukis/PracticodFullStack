@@ -17,10 +17,8 @@ builder.Services.AddCors(options =>
 // קבלת ה-Connection String ממשתנה סביבה בלבד
 var connectionString = Environment.GetEnvironmentVariable("ToDoDB");
 
-if (string.IsNullOrEmpty(connectionString))
-{
-    throw new InvalidOperationException("❌ Database connection string is missing.");
-}
+Console.WriteLine($"🔍 Connection String: {connectionString}");
+
 
 builder.Services.AddDbContext<ToDoDbContext>(options =>
     options.UseMySql(
