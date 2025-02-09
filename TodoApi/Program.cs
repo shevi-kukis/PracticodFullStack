@@ -23,7 +23,12 @@ if (string.IsNullOrEmpty(connectionString))
 }
 
 builder.Services.AddDbContext<ToDoDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+        mySqlOptions => mySqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5, // כמה פעמים לנסות מחדש
+            maxRetryDelay: TimeSpan.FromSeconds(10), // זמן המתנה בין ניסיונות
+            errorNumbersToAdd: null))); // רשימת שגיאות מיוחדות (null = כל השגיאות)
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
