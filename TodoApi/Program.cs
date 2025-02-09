@@ -36,10 +36,9 @@ app.UseCors("AllowAll");
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDo API V1");
-    c.RoutePrefix = "swagger"; // ניגשים דרך /swagger
+    c.SwaggerEndpoint("https://todoserver-uiti.onrender.com/", "ToDo API V1");
+    c.RoutePrefix = "swagger";
 });
-
 
 app.MapGet("/items", async (ToDoDbContext db) =>
     await db.Items.ToListAsync());
