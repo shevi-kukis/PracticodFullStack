@@ -15,19 +15,17 @@ builder.Services.AddCors(options =>
 });
 
 
-// var connectionString = Environment.GetEnvironmentVariable("ToDoDB");
+var connectionString = Environment.GetEnvironmentVariable("ToDoDB");
 
-// Console.WriteLine($"🔍 Connection String: {connectionString}");
+Console.WriteLine($"🔍 Connection String: {connectionString}");
+
+
 builder.Services.AddDbContext<ToDoDbContext>(options =>
-options.UseMySql(builder.Configuration.GetConnectionString("ToDoDB"),
-new MySqlServerVersion(new Version(8, 0, 0))));
-
-// builder.Services.AddDbContext<ToDoDbContext>(options =>
-//     options.UseMySql(
-//         connectionString,
-//         ServerVersion.AutoDetect(connectionString),
-//         mysqlOptions => mysqlOptions.EnableRetryOnFailure()
-//     ));
+    options.UseMySql(
+        connectionString,
+        ServerVersion.AutoDetect(connectionString),
+        mysqlOptions => mysqlOptions.EnableRetryOnFailure()
+    ));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
