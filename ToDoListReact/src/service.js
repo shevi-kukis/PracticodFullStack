@@ -4,7 +4,6 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 axios.defaults.baseURL = apiUrl;
 
-console.log("API URL:", apiUrl);
 
 axios.interceptors.response.use(
   response => response,
@@ -15,16 +14,9 @@ axios.interceptors.response.use(
 );
 
 export default {
-  // שליפת כל המשימות
-
   getTasks: async () => {
-    const result = await axios.get('/items');
-    if (Array.isArray(result.data))
-    return result.data
-    else {
-      alert("no tasks");
-      return [];
-    }
+    const result = await axios.get("/items");
+    return result.data;
   },
 
   addTask: async (name) => {
