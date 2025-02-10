@@ -7,7 +7,8 @@ function App() {
 
   async function getTodos() {
     const todos = await service.getTasks();
-    setTodos(todos);
+    console.log("Fetched todos:", todos);
+    setTodos(Array.isArray(todos) ? todos : []); // ודא שזה מערך
   }
 
   async function createTodo(e) {
@@ -35,7 +36,7 @@ function App() {
   return (
     <section className="todoapp">
       <header className="header">
-        <h1>todosaaaaaaaaaaaaaaaaaaaaaa</h1>
+        <h1>todos</h1>
         <form onSubmit={createTodo}>
           <input className="new-todo" placeholder="Well, let's take on the day" value={newTodo} onChange={(e) => setNewTodo(e.target.value)} />
         </form>
