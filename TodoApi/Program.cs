@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using TodoApi;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // הוספת שירות CORS
