@@ -14,9 +14,16 @@ axios.interceptors.response.use(
 );
 
 export default {
+  // שליפת כל המשימות
+
   getTasks: async () => {
-    const result = await axios.get("/items");
-    return result.data;
+    const result = await axios.get('/tasks');
+    if (Array.isArray(result.data))
+    return result.data
+    else {
+      alert("no tasks");
+      return [];
+    }
   },
 
   addTask: async (name) => {
