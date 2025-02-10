@@ -4,6 +4,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 axios.defaults.baseURL = apiUrl;
 
+console.log("API URL:", apiUrl);
 
 axios.interceptors.response.use(
   response => response,
