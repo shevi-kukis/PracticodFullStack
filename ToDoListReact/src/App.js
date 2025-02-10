@@ -36,8 +36,7 @@ function App() {
   return (
     <section className="todoapp">
       <header className="header">
-        <h1>todosnpm install --save-dev @babel/plugin-proposal-private-property-in-object
-</h1>
+ 
         <form onSubmit={createTodo}>
           <input className="new-todo" placeholder="Well, let's take on the day" value={newTodo} onChange={(e) => setNewTodo(e.target.value)} />
         </form>
