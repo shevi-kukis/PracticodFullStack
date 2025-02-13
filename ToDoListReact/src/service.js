@@ -1,44 +1,45 @@
-import axios from 'axios';
 
-const apiUrl = process.env.REACT_APP_API_URL;
+import axios from "axios";
 
-axios.defaults.baseURL = apiUrl;
+const instance = axios.create({
+  baseURL: `${process.env.REACT_APP_API_URL}`,
+});
 
+console.log(process.env);
 
-axios.interceptors.response.use(
-  response => response,
+instance.interceptors.response.use(
+
+    response => response,
   error => {
     console.error("API Error:", error.response ? error.response.data : error.message);
     return Promise.reject(error);
   }
 );
 
+
 export default {
   getTasks: async () => {
-    const result = await axios.get("/items");
+    const result = await instance.get(`/items`);
     return result.data;
   },
 
   addTask: async (name) => {
- 
-      const newTask = { name, isComplete: false };
-      const result = await axios.post("/items", newTask);
-      return result.data;
-  
+    console.log("addTask", name);
+    const newTask = { name, isComplete: false };
+    const result = await instance.post(`/items`, newTask);
+    return result.data;
   },
 
-  setCompleted: async (id, isComplete, name) => {
-  
-      const updatedTask = { id, isComplete, name };
-      await axios.put(`/items/${id}`, updatedTask);
-      return true;
-   
+  setCompleted: async (id, isComplete) => {
+    const updatedTask = { id, isComplete };
+    const result = await instance.put(`/items/${id}`, updatedTask);
+    return result.data;
   },
 
   deleteTask: async (id) => {
+    await instance.delete(`/items/${id}`);
+    return { id };
+  },
 
-      await axios.delete(`/items/${id}`);
-      return true;
-    
-  }
+  
 };
